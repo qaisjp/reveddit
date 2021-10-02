@@ -36,6 +36,7 @@ class Share : AppCompatActivity() {
         } else {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(replacedUrl))
             startActivity(browserIntent)
+            finish()
         }
     }
 }
