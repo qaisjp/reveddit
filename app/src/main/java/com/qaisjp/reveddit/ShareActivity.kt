@@ -1,9 +1,11 @@
 package com.qaisjp.reveddit
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 
 class Share : AppCompatActivity() {
@@ -35,6 +37,15 @@ class Share : AppCompatActivity() {
 
         if (USE_CUSTOM_TABS) {
             val builder = CustomTabsIntent.Builder()
+
+            // Make the address bar colour match reveddit's header
+            val colorInt: Int = Color.parseColor("#c70300")
+            builder.setDefaultColorSchemeParams(
+                CustomTabColorSchemeParams.Builder()
+                    .setToolbarColor(colorInt)
+                    .build()
+            )
+
             builder.build().launchUrl(this, uri)
             finish()
         } else {
