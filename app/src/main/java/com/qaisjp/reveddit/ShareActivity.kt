@@ -2,9 +2,9 @@ package com.qaisjp.reveddit
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import java.lang.RuntimeException
+import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 
 class Share : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,7 @@ class Share : AppCompatActivity() {
         throw RuntimeException("Unexpected intent ${intent.type}")
     }
 
-    private val USE_CUSTOM_TABS = false;
+    private val USE_CUSTOM_TABS = true;
     private fun handleSharedTextIntent(intent: Intent) {
         val url = intent.getStringExtra(Intent.EXTRA_TEXT)!!
 
@@ -31,10 +31,14 @@ class Share : AppCompatActivity() {
         //
         // note: avoiding url.startWith because of `np.reddit.com` links.
         val replacedUrl = url.replace("reddit.com", "reveddit.com")
+        val uri = Uri.parse(replacedUrl)
 
         if (USE_CUSTOM_TABS) {
+            val builder = CustomTabsIntent.Builder()
+            builder.build().launchUrl(this, uri)
+            finish()
         } else {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(replacedUrl))
+            val browserIntent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(browserIntent)
             finish()
         }
