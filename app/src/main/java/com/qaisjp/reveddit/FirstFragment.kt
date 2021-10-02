@@ -16,7 +16,7 @@ import android.net.Uri
  */
 class FirstFragment : Fragment() {
 
-    private val USE_CUSTOM_TABS = false;
+
 
     private var _binding: FragmentFirstBinding? = null
 
@@ -39,11 +39,6 @@ class FirstFragment : Fragment() {
 
         binding.buttonFirst.setOnClickListener {
 
-            if (USE_CUSTOM_TABS) {
-            } else {
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://reveddit.com"))
-                startActivity(browserIntent)
-            }
 
         }
     }
