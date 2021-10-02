@@ -7,11 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.qaisjp.reveddit.databinding.FragmentFirstBinding
+import android.content.Intent
+import android.net.Uri
+
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class FirstFragment : Fragment() {
+
+    private val USE_CUSTOM_TABS = false;
 
     private var _binding: FragmentFirstBinding? = null
 
@@ -33,7 +38,13 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+
+            if (USE_CUSTOM_TABS) {
+            } else {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://reveddit.com"))
+                startActivity(browserIntent)
+            }
+
         }
     }
 
